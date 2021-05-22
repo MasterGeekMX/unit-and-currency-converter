@@ -1,0 +1,8 @@
+{
+	"name": "unit converter",
+	"description": "Extension to convert measuring units and currency from the GNOME Shell search bar",
+	"shell-version": ["40.0"],
+	"url": "",
+	"uuid": "unit-conerter@mastergeek.mx",
+	"version": 1.0
+}
