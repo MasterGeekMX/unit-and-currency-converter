@@ -4,7 +4,7 @@ A GNOME Shell extension that converts measuring units and currency from the sear
 
 ## Usage
 
-To convert, type in the GNOME Shell search a number followed by the prefix of the unit (`kg`, `sec`, `m`, `usd`, and so on). it can be separated by an space (`15ft`) or not (`15 ft`), it does not matter.
+To convert, type in the GNOME Shell search a number followed by a space and in the end the prefix of the unit (`kg`, `sec`, `m`, `usd`, and so on).
 
 The results will appear on the search results in the shell.
 
