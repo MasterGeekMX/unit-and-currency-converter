@@ -69,11 +69,15 @@ const ConverterSearchProvider = new Lang.Class({
 		this._id = "Unit and Currency Converter";
 	},
 
+	_logMessage(message) {
+		log('UCConverter: ' + message);
+	},
+
 	//function called when the user first begins a search.
 	//terms is an array of the terms put into the search
 	//we will do the bulk of work here, converting units coming from searchTerms
 	getInitialResultSet: function(searchTerms, callback){
-		log("searchTerms: " + searchTerms);
+		this._logMessage("searchTerms: " + searchTerms);
 		results = [];
 		/*if (searchTerms.length == 2){
 			quantity = searchTerms[0];
@@ -94,7 +98,7 @@ const ConverterSearchProvider = new Lang.Class({
     },
 
     getResultMetas: function(results, callback){
-		log("results: " + results);
+		this._logMessage("results: " + results);
 		var metas = [];
 		for (x in results){
 			metas.push({
@@ -119,7 +123,7 @@ const ConverterSearchProvider = new Lang.Class({
     //called when a user selects a search result. It will copy the selected conversion to the clipboard.
     //Thanks https://stackoverflow.com/questions/9737280/gnome-shell-extension-copy-text-to-clipboard
     activateResult: function(result){
-    	log("selecting " + result);
+    	log("UCConverter: selecting " + result);
 		//Gi.Clipboard.get_default().set_text(St.ClipboardType.PRIMARY, "apetecan");
     },
 
@@ -137,7 +141,7 @@ According to guidelines no major thing should be done here.
 We will just log the start of the extension for now
 */
 function init () {
-	log('Initializing "Unit and Currency Converter" shell extension');
+	log('UCConverter: Initializing "Unit and Currency Converter" shell extension');
 }
 /*
 called when the extension is turned on.
@@ -146,7 +150,7 @@ We will create the instance of the search provider and then add it to the shell,
 with a little bit of loggin for that (visible in journalctl)
 */
 function enable () {
-	log('Enabling "Unit and Currency Converter" shell extension');
+	log('UCConverter: Enabling "Unit and Currency Converter" shell extension');
 	converterSearchProvider = new ConverterSearchProvider();
 	searchResults._registerProvider(converterSearchProvider);
 }
@@ -157,7 +161,7 @@ We will remove the instance of the search provider from the shell, and then free
 And also loggin of it.
 */
 function disable() {
-	log('Disabling "Unit and Currency Converter" shell extension');
+	log('UCConverter: Disabling "Unit and Currency Converter" shell extension');
 	searchResults._unregisterProvider(converterSearchProvider);
 	converterSearchProvider = null;
 }
