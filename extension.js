@@ -11,14 +11,12 @@ the Free Software Foundation; either version 3 of the License, or
 
 
 /*Imports for different resources*/
-const Main = imports.ui.main;
-const Search = imports.ui.search;
 const Lang = imports.lang;
 const Misc = imports.misc;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Extension = ExtensionUtils.getCurrentExtension();
+//const ExtensionUtils = imports.misc.extensionUtils;
+const Main = imports.ui.main;
+const Search = imports.ui.search;
 const Gi = imports.gi;
-const {Gio, St} = imports.gi;
 
 //this will gather the correct import for the searchResults class depending on the version of GNOME Shell
 //TODO test in in early and newer versions and see how far in the past I can go
@@ -73,17 +71,13 @@ const ConverterSearchProvider = new Lang.Class({
 	//terms is an array of the terms put into the search
 	//we will do the bulk of work here, converting units coming from searchTerms
 	getInitialResultSet: function(searchTerms, callback){
-		log("searchTerms: " + searchTerms);
-		results = [];
-		/*if (searchTerms.length == 2){
+		var result = [];
+		if (searchTerms.length == 2){
 			quantity = searchTerms[0];
 			unit = searchTerms[1];
-			results.push(quantity);
-		}*/
-		for (x in searchTerms){
-			results.push(x);
+			result.push(quantity);
 		}
-		callback(results)
+		callback(result);
 	},
 
 	//function called when a search is performed which is a "subsearch" of the previous search,
@@ -93,26 +87,23 @@ const ConverterSearchProvider = new Lang.Class({
         return this.getInitialResultSet(searchTerms, callback);
     },
 
-    getResultMetas: function(results, callback){
-		log("results: " + results);
+    getResultMetas: function(resultIDs, callback){
 		var metas = [];
-		for (x in results){
-			metas.push({
-				id: x,
-				name: x,
-				description: "something " + x,
-				createIcon: function(){
-					let gicon = new Gio.ThemedIcon({
-						name: "object-flip-horizontal-symbolic",
-						'use-default-fallbacks': true,
-					});
-					let icon = new St.Icon({
-						gicon: gicon,
-					})
-					return icon;
-				},
-			})
-		}
+		metas.push({
+			id: resultIDs,
+			name: quantity + " " + unit,
+			description: "converting " + quantity + " " + unit,
+			createIcon: function(){
+				let gicon = new Gi.Gio.ThemedIcon({
+					name: "object-flip-horizontal-symbolic",
+					'use-default-fallbacks': true,
+				});
+				let icon = new Gi.St.Icon({
+					gicon: gicon,
+				})
+				return icon;
+			},
+		})
 		callback(metas);
 	},
 
@@ -120,7 +111,7 @@ const ConverterSearchProvider = new Lang.Class({
     //Thanks https://stackoverflow.com/questions/9737280/gnome-shell-extension-copy-text-to-clipboard
     activateResult: function(result){
     	log("selecting " + result);
-		//Gi.Clipboard.get_default().set_text(St.ClipboardType.PRIMARY, "apetecan");
+		//Gi.Gio.Clipboard.get_default().set_text(St.ClipboardType.PRIMARY, result);
     },
 
     filterResults: function(results, maxResults){
