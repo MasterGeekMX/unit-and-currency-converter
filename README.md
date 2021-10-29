@@ -2,6 +2,8 @@
 
 A GNOME Shell extension that converts measuring units and currency from the search bar.
 
+## IT IS A WORK-IN-PROGRESS (NOT EVEN ALPHA!). NOTHING WORKS YET
+
 ## Usage
 
 To convert, type in the GNOME Shell search a number followed by a space and in the end the prefix of the unit (`kg`, `sec`, `m`, `usd`, and so on).
